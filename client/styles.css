@@ -26,3 +26,6 @@ button.primary { background:var(--accent); color:#fff; }
 .plans h3 { margin:0 0 .25rem; }
 .st-DRAFT { color:#444; } .st-PENDING_SYNC { color:var(--warn); } .st-SYNCING { color:var(--accent); }
 .st-SYNCED { color:var(--ok); } .st-SYNC_FAILED, .st-CONFLICT { color:var(--err); }
+.conflict { border:2px solid var(--err); border-radius:6px; padding:.5rem .75rem; margin:.5rem 0; }
+select { min-height:44px; padding:.4rem; font:inherit; border:2px solid var(--line); border-radius:6px; }
+details { margin-top:1rem; } summary { cursor:pointer; font-weight:600; min-height:44px; }

@@ -73,8 +73,24 @@
 
     <section aria-labelledby="list-h">
       <h2 id="list-h">Plans on this device</h2>
+      <div class="row"><button type="button" id="sync-all">Sync all waiting plans</button></div>
       <ul id="plan-list" class="plans"></ul>
       <p id="empty" class="muted">No plans yet. Save a draft above.</p>
+    </section>
+
+    <section aria-labelledby="demo-h">
+      <details>
+        <summary id="demo-h">Demo tools (for testing the offline and failure behaviour)</summary>
+        <p><label><input type="checkbox" id="demo-fail"> Pretend the server is unreachable</label></p>
+        <p class="muted">Tip: you can also switch your Wi-Fi off. The page notices and keeps your plans safe.</p>
+        <div id="demo-conflict" hidden>
+          <label for="demo-plan">Simulate an edit from another device (to see a conflict)</label>
+          <div class="row">
+            <select id="demo-plan"></select>
+            <button type="button" id="demo-edit">Edit it on the server</button>
+          </div>
+        </div>
+      </details>
     </section>
   </main>
 

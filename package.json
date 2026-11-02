@@ -4,9 +4,12 @@
   "description": "STEMMate Namibia A4 vertical slice: session plan with local drafts, validation, offline queue, sync and recovery",
   "private": true,
   "type": "module",
-  "engines": { "node": ">=20" },
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "start": "node server/server.js",
-    "test": "node --test"
+    "test": "node --test",
+    "demo": "node server/server.js --demo"
   }
 }

@@ -141,6 +141,40 @@ export class PlanStore {
     return plan;
   }
 
+  /** Take the server's version of a plan (used when the user resolves a conflict in the server's favour). */
+  applyServerVersion(id, server) {
+    const all = this.#readAll();
+    const plan = all[id];
+    if (!plan) throw new StoreError("NOT_FOUND", "That plan no longer exists on this device.");
+    for (const { key } of FIELDS) plan[key] = server.content[key] ?? "";
+    plan.status = STATUS.SYNCED;
+    plan.serverId = server.serverId;
+    plan.baseVersion = server.version;
+    plan.lastError = null;
+    plan.conflict = null;
+    plan.savedAt = this.now().toISOString();
+    all[id] = plan;
+    this.#writeAll(all);
+    return plan;
+  }
+
+  /**
+   * Recovery after the tab was closed or the browser crashed mid-sync: a plan stuck in SYNCING
+   * goes back to PENDING_SYNC. Nothing is lost because the local copy was never removed.
+   */
+  recoverInterrupted() {
+    const all = this.#readAll();
+    const fixed = [];
+    for (const plan of Object.values(all)) {
+      if (plan.status === STATUS.SYNCING) {
+        plan.status = STATUS.PENDING_SYNC;
+        fixed.push(plan.id);
+      }
+    }
+    if (fixed.length) this.#writeAll(all);
+    return fixed;
+  }
+
   remove(id) {
     const all = this.#readAll();
     if (!all[id]) return false;
